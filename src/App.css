@@ -1,0 +1,45 @@
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl {
+  width: 90%;
+  padding: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.border {
+  border: 1px solid #dee2e6 !important;
+}
+.container-fluid {
+  width: 90%;
+  padding: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+.customLabel {
+  float: left;
+}
+
+.error {
+  font-size: 80%;
+  font-weight: 400;
+  float: left;
+  color: red;
+}
+.form-group {
+  margin: 1rem;
+}
+.customTable{
+  width: inherit;
+}
+.customButton{
+  margin: 20px;
+}
