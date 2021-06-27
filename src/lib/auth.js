@@ -8,7 +8,7 @@ import {
 import { storage } from "../utils";
 
 export async function handleUserResponse(data) {
-  console.log("test data",data)
+ // console.log("test data",data)
   const { jwt, user } = data;
   storage.setToken(jwt);
   return user;
@@ -17,7 +17,7 @@ export async function handleUserResponse(data) {
 async function loadUser() {
   let user = null;
 
-  if (storage.getToken()) {
+  if(storage.getToken()!== null && storage.getToken() !== undefined && storage.getToken().length>0){
     const data = await getUserProfile();
     user = data;
   }
@@ -26,13 +26,14 @@ async function loadUser() {
 
 async function loginFn(data) {
   const response = await loginWithEmailAndPassword(data);
-  const user = await handleUserResponse(response);
+  storage.setToken(response.data.DATA.token);
+  const user = response.data.DATA;
   return user;
 }
 
 async function registerFn(data) {
   const response = await registerWithEmailAndPassword(data);
-  const user = await handleUserResponse(response);
+  const user = response.data.DATA;
   return user;
 }
 

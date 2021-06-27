@@ -1,5 +1,6 @@
 import { storage } from "./utils";
 import axios from 'axios';
+import { response } from "msw";
 
 // interface AuthResponse {
 //   user: User;
@@ -12,7 +13,7 @@ import axios from 'axios';
 //   name?: string;
 // }
 
-const API_URL = "https://my-server/api";
+const API_URL = "http://localhost:3000/admin";
 
 export async function handleApiResponse(response) {
   const data = await response.json();
@@ -25,35 +26,35 @@ export async function handleApiResponse(response) {
 }
 
 export async function getUserProfile() {
-  console.log("test checj",storage.getToken())
-  return  axios.get(`${API_URL}/auth/me`, {
-    headers: {
-      Authorization: storage.getToken()
-    }
-  }).then(response=>{
-    console.log(response.data);
-    handleApiResponse(response);
-  }).catch((error) => {
-    console.log('error ' + error);
- });;
+  if(storage.getToken()!== null && storage.getToken() !== undefined&& storage.getToken().length>0){
+    return  axios.get(`${API_URL}/user/60d69f9ad1228812f244aaae`, {
+      headers: {
+        Authorization: storage.getToken()
+      }
+    }).then(response=>{
+      console.log(response.data);
+      handleApiResponse(response);
+    }).catch((error) => {
+      console.log('error ' + error);
+   });
+  }else{
+    return;
+  }
+  
 }
 
 export async function loginWithEmailAndPassword(data) {
-  return window
-    .fetch(`${API_URL}/auth/login`, {
-      method: "POST",
-      body: JSON.stringify(data)
-    })
-    .then(handleApiResponse);
+  return await axios.post(`${API_URL}/auth/login`, data)
+    
 }
 
 export async function registerWithEmailAndPassword(
   data
 ) {
-  return window
-    .fetch(`${API_URL}/auth/register`, {
-      method: "POST",
-      body: JSON.stringify(data)
-    })
-    .then(handleApiResponse);
+  return await axios.post(`${API_URL}/auth/register`,data)
+    // .then(response=>{
+    //   response.json();
+    // }).then(data=>{
+    //   return response.DATA;
+    // });
 }

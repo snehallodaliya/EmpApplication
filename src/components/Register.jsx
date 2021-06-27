@@ -16,23 +16,33 @@ export function Register() {
           try {
             await register(values);
           } catch (err) {
+            console.log("error")
             setError(err);
           }
         }}
       >
         <input
-          autoComplete="new-password"
           placeholder="email"
           name="email"
           onChange={onChange}
         />
+        <br/>
         <input placeholder="name" name="name" onChange={onChange} />
+        <br/>
         <input
           type="password"
           placeholder="password"
           name="password"
           onChange={onChange}
         />
+        <br/>
+        <input placeholder="username" name="username" onChange={onChange} />
+        <br/>
+        <input placeholder="mobileNo" name="mobileNo" onChange={onChange} />
+        <br/>
+        <input placeholder="role" name="role" onChange={onChange} />
+        <br/>
+        
         <button type="submit">Submit</button>
         {error && (
           <div style={{ color: "tomato" }}>

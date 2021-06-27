@@ -20,17 +20,18 @@ export function Login() {
         }}
       >
         <input
-          autoComplete="new-password"
-          placeholder="email"
-          name="email"
+          placeholder="username"
+          name="username"
           onChange={onChange}
         />
+        <br/>
         <input
           type="password"
           placeholder="password"
           name="password"
           onChange={onChange}
         />
+        <br/>
         <button type="submit">Submit</button>
       </form>
       {error && (
