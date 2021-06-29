@@ -1,15 +1,13 @@
 import React from "react";
-import { useQuery } from "react-query";
-import axios from "axios";
+import {useUsers} from './../queries/useEmpList';
 
 const EmpTable1 = () => {
     const [empTableData, setEmpTableData] = React.useState();
-    async function fetchEmps(page = 0) {
-        const { data } = await axios.get('http://localhost:4000/Employee/')
-        return data.DATA.data
-      }
-    const {data,status}=useQuery("getEmpList", fetchEmps)
-
+    // async function fetchEmps(page = 0) {
+    //     const { data } = await axios.get('http://localhost:4000/Employee/')
+    //     return data.DATA.data
+    //   }
+    const {data,status}=useUsers("getEmp");
   return (
     <div>
       <h2>People</h2>

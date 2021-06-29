@@ -48,6 +48,9 @@ const authConfig = {
   logoutFn
 };
 
+const testData= ()=>{
+  return initReactQueryAuth(authConfig);
+}
 const { AuthProvider, useAuth } = initReactQueryAuth(authConfig);
 
-export { AuthProvider, useAuth };
+export { AuthProvider, useAuth,testData };

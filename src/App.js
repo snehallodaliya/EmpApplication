@@ -27,14 +27,12 @@ import { Auth } from "./components/Auth";
 import { UserInfo } from "./components/UserInfo";
 import { useAuth } from "./lib/auth";
 
-// function App() {
-//   const { user } = useAuth();
-//   return user ?<><h1>test</h1> <UserInfo /> </>: <Auth />;
-// }
+
 function App(){
   const { user } = useAuth();
   return (
-     user ?<><h1>test</h1> <UserInfo /> </>: <Auth />
+    user ?<><h1>test</h1> <UserInfo /> </>: <Auth />
+   
   );
 }
 export default App;

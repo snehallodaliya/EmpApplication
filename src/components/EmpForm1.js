@@ -1,8 +1,7 @@
 import { React, useState } from "react";
-import axios from "axios";
 import FormComponent from "./../components/FormComponent";
-import { useQueryClient, useMutation } from "react-query";
 import EmpTable1 from "./../components/EmpTable1";
+import {useUserCreate} from './../queries/useEmpList';
 
 const EmpForm1 = () => {
   const [errors, setErrors] = useState({});
@@ -17,45 +16,7 @@ const EmpForm1 = () => {
   const handleInputChange = (key, value) => {
     setEmp({ ...emp, [key]: value });
   };
-  const queryClient = useQueryClient();
-//   const { status, data, error, isFetching } = useQuery(
-//     "getEmpList",
-//     async () => {
-//       const res = await axios.get("http://localhost:4000/Employee/");
-//       return res.data.DATA.data;
-//     }
-//   );
-
-  const addEmpMutation = useMutation(
-    (emp1) =>
-      axios.post("http://localhost:4000/Employee/create", emp1, {
-        headers: { "Content-Type": "application/json" },
-      }),
-    {
-      onMutate: async (emp1) => {
-        console.log("test emp1", emp1);
-        setEmp(initialFormState);
-        await queryClient.cancelQueries("getEmpList");
-
-        const previousValue = queryClient.getQueryData("getEmpList");
-
-        queryClient.setQueryData("getEmpList", (old) => ({
-          ...old,
-          data: [...old, emp1],
-        }));
-
-        return previousValue;
-      },
-      // On failure, roll back to the previous value
-      onError: (err, variables, previousValue) =>
-        queryClient.setQueryData("getEmpList", previousValue),
-      // After success or failure, refetch the todos query
-      onSettled: () => {
-        queryClient.invalidateQueries("getEmpList");
-      },
-    }
-  );
-
+  const addEmpMutation = useUserCreate();
   return (
     <>
       <form
